@@ -5,7 +5,6 @@ uniform sampler2D texture;
 uniform float iGlobalTime;
 
 #define iChannel0 texture
-#define iChannel1 texture
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord );
 

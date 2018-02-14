@@ -25,6 +25,10 @@ void filterLayer() {
     currentFilter = "ascii";
     break;
   case 6:
+    filter(bloom);
+    currentFilter = "bloom";
+    break;
+  case 7:
     currentFilter = "none";
     break;
   }

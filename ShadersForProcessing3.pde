@@ -6,10 +6,10 @@
 import processing.video.*;
 
 Movie        videoComp;
-PShader      vhs, vhs_glitch, vhs_wobble, binaryGlitch, sobel, ascii;
+PShader      vhs, vhs_glitch, vhs_wobble, binaryGlitch, sobel, ascii, bloom;
 
 int          filterState         = 0;
-int          numberOfFilters     = 6;
+int          numberOfFilters     = 7;
 String       currentFilter;
 
 //STUFF
@@ -40,12 +40,14 @@ void setup() {
   sobel.set("iResolution", float(width), float(height));
   ascii = loadShader("ascii.glsl");
   ascii.set("iResolution", float(width), float(height));
+  bloom = loadShader("bloomHDR.glsl");
+  bloom.set("iResolution", float(width), float(height));
 }
 
 //**********************************************************************
 
 void draw() {
-  
+
   //NEXT FILTER EVERY TIME YOU PRESS A
   if (skip == true) {
     filterState++;
@@ -59,11 +61,12 @@ void draw() {
   vhs.set("iGlobalTime", millis() / 1000.0);
   vhs_glitch.set("iGlobalTime", millis() / 1000.0);
   vhs_wobble.set("iGlobalTime", millis() / 1000.0);
+  bloom.set("iGlobalTime", millis() / 1000.0);
 
   //DRAW THE LAYERS
   image(videoComp, 0, 0, width, height);
   filterLayer();
-  
+
   //READOUT
   surface.setTitle("FPS " + nf(int(frameRate), 2) + " || filterState " + currentFilter);
 }
